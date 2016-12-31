@@ -1,0 +1,22 @@
+{
+  "name": "spotify_app",
+  "version": "1.0.0",
+  "description": "spotify app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anatolii ruchka",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "*",
+    "body-parser": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "morgan": "*",
+    "promise":"*",
+    "restler": "*",
+    "socket.io": "*"
+  }
+}
