@@ -16,7 +16,7 @@ angular.module('SpotifyApp', ['ui.router', 'SpotifyApp.controllers'])
   $urlRouterProvider.otherwise('discover');
     
   $stateProvider
-  .state('/discover', {
+  .state('discover', {
     url: '/discover',
     templateUrl: 'templates/discover.html',
     controller: 'DiscoverCtrl'
