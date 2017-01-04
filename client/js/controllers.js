@@ -7,8 +7,8 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
         // first we'll need to initialize the Rec service, get our first songs, etc
         Recommendations.init()
             .then(function(){
-                $scope.getSoundTrackImages();
                 $scope.currentSong = Recommendations.queue[0].track;
+                $scope.getSoundTrackImages();
                 console.log($scope.currentSong);
                 return Recommendations.playCurrentSong();
 
@@ -39,7 +39,32 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
             $scope.soundTrackImage1 = Recommendations.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
             $scope.soundTrackImage2 = Recommendations.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
             $scope.soundTrackImage3 = Recommendations.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
+            $scope.shuffledSoundTrackImages = $scope.shuffleSoundTrackImages();
+        }
+        
+        $scope.shuffleSoundTrackImages = function () {
+            
+            $scope.soundTrackImagesArray = [
+                $scope.currentSong.album.images[0].url, 
+                $scope.soundTrackImage1, 
+                $scope.soundTrackImage2, 
+                $scope.soundTrackImage3
+            ];
+            
+            var array = $scope.soundTrackImagesArray;
+            var currentIndex = array.length, temporaryValue, randomIndex;
 
+            while (0 !== currentIndex) {
+
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
         }
 
         $scope.getRandomInt = function (min, max) {
