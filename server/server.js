@@ -10,13 +10,11 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 mongoose.connect(config.database, function(err){
-	if(err)
-		{
-			console.log(err);
-		}else
-		{
-			console.log("Connect to database");
-		}
+	if(err) {
+        console.log(err);
+    } else{
+        console.log("Connect to database");
+    }
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,10 +25,9 @@ var api  = require('./app/routes/api')(app, express, io);
 app.use('/api', api);
  
 http.listen(config.port, function(err) {
-	if(err)
-	{
+	if(err) {
 		console.log(err);
-	}else{
+	} else{
 		console.log("Listening on port " + config.port);
 	}
 });
