@@ -20,9 +20,23 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
 
         $scope.getSoundTrackImages = function () {
             var queueLength = SpotifySoundtracks.queue.length;
-            $scope.soundTrackImage1 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
-            $scope.soundTrackImage2 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
-            $scope.soundTrackImage3 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
+            
+            $scope.soundTrackImage1 = "";
+            $scope.soundTrackImage2 = "";
+            $scope.soundTrackImage3 = "";
+            
+            do {
+                $scope.soundTrackImage1 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
+            } while ($scope.soundTrackImage1 === $scope.currentSong.album.images[0].url);
+            
+            do {
+                $scope.soundTrackImage2 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
+            } while ($scope.soundTrackImage2 === $scope.currentSong.album.images[0].url || $scope.soundTrackImage2 === $scope.soundTrackImage1 );
+            
+            do {
+                $scope.soundTrackImage3 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
+            } while ($scope.soundTrackImage3 === $scope.currentSong.album.images[0].url || $scope.soundTrackImage3 === $scope.soundTrackImage1 || $scope.soundTrackImage3 === $scope.soundTrackImage2 );
+            
             $scope.shuffledSoundTrackImages = $scope.shuffleSoundTrackImages();
         }
         
