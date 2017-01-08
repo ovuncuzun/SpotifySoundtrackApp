@@ -67,6 +67,29 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
         $scope.getRandomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
+        
+        $scope.checkSong = function (soundTrackImageURL) {
+            console.log($scope.currentSong)
+            if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
+                console.log("success!!")
+            } else {
+                console.log("failue!!")
+            }
+            
+            SpotifySoundtracks.nextSong();
+            $timeout(function() {
+                $scope.currentSong = SpotifySoundtracks.queue[0].track;
+                $scope.getSoundTrackImages();
+                $scope.currentSong.loaded = false;
+
+            }, 250);
+
+            SpotifySoundtracks.playCurrentSong().then(function() {
+                $scope.currentSong.loaded = true;
+
+            });
+
+        }
 
     });
 
