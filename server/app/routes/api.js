@@ -41,7 +41,8 @@ module.exports = function(app, express, io){
 		    		promise2.then(function(data2) {
 		    			data.body.items = data.body.items.concat(data2.body.items);
 		    			if(totalTracks <= data.body.items.length) {
-				    		res.json(data.body.items);
+                            soundTracksPlaylist = spotifyApi.randomizePlaylist(data.body.items);
+				    		res.json(soundTracksPlaylist);
 				    	}
 		    		}, function(err) {
 				        callback(err);
