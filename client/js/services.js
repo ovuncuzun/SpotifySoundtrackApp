@@ -35,6 +35,9 @@ angular.module('SpotifyApp.services', [])
         var defer = $q.defer();
 
         // play the current song's preview
+        while (o.queue[0].track.preview_url == null) {
+            o.nextSong();
+        }
         media = new Audio(o.queue[0].track.preview_url);
 
         // when song loaded, resolve the promise to let controller know.

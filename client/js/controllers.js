@@ -82,11 +82,10 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
                 $scope.getSoundTrackImages();
                 $scope.currentSong.loaded = false;
 
-            }, 250);
+            }, 50);
 
             SpotifySoundtracks.playCurrentSong().then(function() {
                 $scope.currentSong.loaded = true;
-
             });
 
         }
