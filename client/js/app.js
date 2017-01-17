@@ -1,4 +1,4 @@
-angular.module('SpotifyApp', ['ui.router', 'SpotifyApp.controllers'])
+angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controllers'])
 
     .config(function($stateProvider, $urlRouterProvider) {
 
@@ -10,5 +10,15 @@ angular.module('SpotifyApp', ['ui.router', 'SpotifyApp.controllers'])
                 templateUrl: 'templates/discover.html',
                 controller: 'DiscoverCtrl'
             })
+        
+            .state('home', {
+                url: '/discover'
+            })
+
+            .state('training', {
+                url: '/training',
+                templateUrl: 'templates/training.html',
+            });
+
 
     })
