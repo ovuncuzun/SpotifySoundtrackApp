@@ -24,7 +24,7 @@ html {
 }
 body {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 /* Large desktops and laptops */
@@ -46,6 +46,13 @@ body {
     div.imagetiles div.col-lg-3.col-md-3.col-sm-3.col-xs-6 {
         padding: 15px;
     }
+    
+    .visible-xs.collapse.in {
+        display: block!important;
+    }
+    .visible-xs.collapse {
+        display: none!important;
+    }
 }
 
 /* Landscape phones and portrait tablets */
@@ -60,4 +67,16 @@ body {
     div.imagetiles div.col-lg-3.col-md-3.col-sm-3.col-xs-6 {
         padding: 5px;
     }
+}
+
+.header-placeholder {
+  height: 50px;
+}
+
+.navbar .collapse {
+    border-top: 1px solid #e7e7e7;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
