@@ -14,8 +14,8 @@ module.exports = function(app, express, io){
 	api.get('/soundtracks', function(req,res){
 
 		var spotifyApi = new SpotifyWebApi({
-		  clientId : 'e022491cb39547abb964e73fb4a71bac',
-		  clientSecret : '37f49f344745465cb9b240c831b6874d'
+			clientId : 'e022491cb39547abb964e73fb4a71bac',
+			clientSecret : '37f49f344745465cb9b240c831b6874d'
 		});
 
 
@@ -26,40 +26,40 @@ module.exports = function(app, express, io){
 
 		// Retrieve an access token
 		spotifyApi.clientCredentialsGrant()
-		  .then(function(data) {
-		    spotifyApi.setAccessToken(data.body['access_token'])
-            console.log("access_token")
-		    console.log(data.body['access_token'])
+			.then(function(data) {
+				spotifyApi.setAccessToken(data.body['access_token'])
+				console.log("access_token")
+				console.log(data.body['access_token'])
 
-		    var promise = spotifyApi.getPlaylistTracks(artistId, playListId, options)
-		    promise.then(function(data) {
-		    	var totalTracks = data.body.total;
-		    	var offsetCounter = 100;
-		    	while(totalTracks >= offsetCounter) {
-		    		var options2 = 'limit=100&offset=' + offsetCounter;
-		    		var promise2 = spotifyApi.getPlaylistTracks(artistId, playListId, options2)
-		    		promise2.then(function(data2) {
-		    			data.body.items = data.body.items.concat(data2.body.items);
-		    			if(totalTracks <= data.body.items.length) {
-                            soundTracksPlaylist = spotifyApi.randomizePlaylist(data.body.items);
-				    		res.json(soundTracksPlaylist);
-				    	}
-		    		}, function(err) {
-				        callback(err);
-				    });
-				    offsetCounter += 100;
-		    	}
-		    	
-		    }, function(err) {
-		        callback(err);
-		    });
-		}, function(err) {
-		    console.log('Something went wrong..', err.message);
-		});
+				var promise = spotifyApi.getPlaylistTracks(artistId, playListId, options)
+				promise.then(function(data) {
+					var totalTracks = data.body.total;
+					var offsetCounter = 100;
+					while(totalTracks >= offsetCounter) {
+						var options2 = 'limit=100&offset=' + offsetCounter;
+						var promise2 = spotifyApi.getPlaylistTracks(artistId, playListId, options2)
+						promise2.then(function(data2) {
+							data.body.items = data.body.items.concat(data2.body.items);
+							if(totalTracks <= data.body.items.length) {
+								soundTracksPlaylist = spotifyApi.randomizePlaylist(data.body.items);
+								res.json(soundTracksPlaylist);
+							}
+						}, function(err) {
+							callback(err);
+						});
+						offsetCounter += 100;
+					}
+
+				}, function(err) {
+					callback(err);
+				});
+			}, function(err) {
+				console.log('Something went wrong..', err.message);
+			});
 
 
-		   
+
 	});
-    
+
 	return api;
 }

@@ -48,7 +48,7 @@ Request.prototype.getURI = function() {
   }
   var uri = this.scheme + '://' + this.host;
   if (this.scheme === 'http' && this.port !== 80 ||
-    this.scheme === 'https' && this.port !== 443) {
+      this.scheme === 'https' && this.port !== 443) {
     uri += ':' + this.port;
   }
   if (this.path) {

@@ -49,28 +49,28 @@ var _getErrorObject = function(defaultMessage, err) {
 HttpManager._makeRequest = function(method, options, uri, callback) {
 
   method(uri, options)
-    .on('success', function(data, response) {
-      callback(null, { 'body' : data, 'headers': response.headers, 'statusCode' : response.statusCode });
-    })
-    .on('fail', function(err, response) {
-      if (err) {
-        var errorObject = _getErrorObject('Request failed', err);
-        callback(errorObject);
-      } else {
-        callback(new Error('Request failed'));
-      }
-    })
-    .on('error', function(err, response) {
-      if (err) {
-        var errorObject = _getErrorObject('Request error', err);
-        callback(errorObject);
-      } else {
-        callback(new Error('Request error'));
-      }
-    })
-    .on('timeout', function(ms) {
-      callback(new Error('Request timed out (' + ms + ')'));
-    });
+      .on('success', function(data, response) {
+        callback(null, { 'body' : data, 'headers': response.headers, 'statusCode' : response.statusCode });
+      })
+      .on('fail', function(err, response) {
+        if (err) {
+          var errorObject = _getErrorObject('Request failed', err);
+          callback(errorObject);
+        } else {
+          callback(new Error('Request failed'));
+        }
+      })
+      .on('error', function(err, response) {
+        if (err) {
+          var errorObject = _getErrorObject('Request error', err);
+          callback(errorObject);
+        } else {
+          callback(new Error('Request error'));
+        }
+      })
+      .on('timeout', function(ms) {
+        callback(new Error('Request timed out (' + ms + ')'));
+      });
 };
 
 /**
