@@ -10,7 +10,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
             })
             .then(function(){
-                // turn loading off
                 $scope.currentSong.loaded = true;
             });
 
