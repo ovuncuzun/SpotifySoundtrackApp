@@ -1,10 +1,6 @@
-angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
-    /*
-     Controller for the discover page
-     */
+angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
-    .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks) {
-        // first we'll need to initialize the Rec service, get our first songs, etc
+    .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
         SpotifySoundtracks.init()
             .then(function(){
                 $scope.currentSong = SpotifySoundtracks.queue[0].track;
@@ -71,9 +67,21 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services'])
         $scope.checkSong = function (soundTrackImageURL) {
             console.log($scope.currentSong)
             if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
-                console.log("success!!")
+                notify({
+                    message: "Well done!",
+                    classes: "alert-success",
+                    templateUrl: "",
+                    position: "center",
+                    duration: 800
+                });
             } else {
-                console.log("failue!!")
+                notify({
+                    message: "Oh snap!",
+                    classes: "alert-danger",
+                    templateUrl: "",
+                    position: "center",
+                    duration: 800
+                });
             }
             
             SpotifySoundtracks.nextSong();
