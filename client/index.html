@@ -34,17 +34,17 @@
             <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
                 <ul class="nav navbar-nav">
                     <li class="active"><a ui-sref="discover" ng-click='navCollapsed = true'>Home</a></li>
-                    <li><a ui-sref="training" ng-click='navCollapsed = true'>Leaderboard</a></li>
+                    <li><a ui-sref="leaderboard" ng-click='navCollapsed = true'>Leaderboard</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">User</a></li>
+                    <li><a ui-sref="profile" ng-click='navCollapsed = true'>Profile</a></li>
                     <li class="dropdown" uib-dropdown>
                         <a class="dropdown-toggle" uib-dropdown-toggle>
                             <i class="fa fa-cogs"></i> Admin
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="training" ng-click='navCollapsed = true'>Actions</a></li>
+                            <li><a ui-sref="admin" ng-click='navCollapsed = true'>Actions</a></li>
                         </ul>
                     </li>
                 </ul>

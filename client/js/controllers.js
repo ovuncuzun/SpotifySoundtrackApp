@@ -106,7 +106,15 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('TrainingCtrl', function($scope, SpotifySoundtracks) {
         SpotifySoundtracks.haltAudio();
-    });
+    })
+
+    .controller('ProfileCtrl', function($scope, SpotifySoundtracks) {
+        SpotifySoundtracks.haltAudio();
+    })
+
+    .controller('AdminCtrl', function($scope, SpotifySoundtracks) {
+        SpotifySoundtracks.haltAudio();
+    })
     
 
 
