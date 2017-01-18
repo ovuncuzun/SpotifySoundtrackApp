@@ -67,6 +67,12 @@ angular.module('SpotifyApp.services', [])
         o.haltAudio = function() {
             if (media) media.pause();
         }
+        
+        o.removeAudio = function() {
+            o.queue = [];
+        }
+        
+        
 
         return o;
     });

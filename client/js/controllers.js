@@ -1,17 +1,23 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
+    
         SpotifySoundtracks.init()
             .then(function(){
                 $scope.currentSong = SpotifySoundtracks.queue[0].track;
                 $scope.getSoundTrackImages();
-                console.log($scope.currentSong);
                 return SpotifySoundtracks.playCurrentSong();
 
             })
             .then(function(){
                 $scope.currentSong.loaded = true;
             });
+        
+        
+        $scope.$on('$destroy', function(event) {
+          SpotifySoundtracks.removeAudio();
+        });
+    
 
         $scope.getSoundTrackImages = function () {
             var queueLength = SpotifySoundtracks.queue.length;
@@ -64,7 +70,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         }
 
         $scope.checkSong = function (soundTrackImageURL) {
-            console.log($scope.currentSong)
             if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
                 notify({
                     message: "Well done!",
@@ -97,6 +102,11 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
         }
 
+    })
+
+    .controller('TrainingCtrl', function($scope, SpotifySoundtracks) {
+        SpotifySoundtracks.haltAudio();
     });
+    
 
 

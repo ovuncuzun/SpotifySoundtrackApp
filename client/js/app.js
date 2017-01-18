@@ -18,6 +18,7 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
             .state('training', {
                 url: '/training',
                 templateUrl: 'templates/training.html',
+                controller: 'TrainingCtrl'
             });
 
 
