@@ -115,6 +115,84 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
     .controller('AdminCtrl', function($scope, SpotifySoundtracks) {
         SpotifySoundtracks.haltAudio();
     })
+
+
+angular.module('mainCtrl', ['authService'])
+
+.controller('MainController', function($rootScope, $location, Auth){
+
+	var vm = this;
+	vm.loggedIn = Auth.isLoggedIn();
+	$rootScope.$on('$routeChangeStart', function(){
+		vm.loggedIn = Auth.isLoggedIn();
+
+		Auth.getUser()
+			.then(function(data){
+				vm.user = data.data;
+			});
+	});
+    // Use AUth service to login
+	vm.doLogin = function(){
+		console.log("Trying to login");
+
+		vm.processing = true;
+		vm.error = '';
+
+		Auth.login(vm.loginData.username, vm.loginData.password)
+			.success(function(data){
+				vm.processing = false;
+
+				Auth.getUser()
+					.then(function(data){
+						vm.user = data.data;
+					});
+
+				if(data.success)
+					$location.path('/');
+				else
+					vm.error = data.message;
+			});
+	};
+
+	// Use AUth service to logout
+	vm.doLogout = function(){
+		Auth.logout();
+		$location.path('/logout');
+	};
+})
+
+angular.module('userCtrl',['userService'])
+	
+	.controller('userController', function(User){
+		var vm = this;
+		User.all()
+			.success(function(data){
+				vm.users= data;
+			})
+	})
+
+	.controller('userCreateController', function(User, $location, $window){
+
+		var vm = this;
+
+        vm.signupUser = function(){
+
+            console.log("Trying to create user!");
+
+            vm.message = '';
+
+            User.create(vm.userData)
+                .then(function(response){
+                    vm.userData = {};
+                    vm.message = response.data.message;
+
+                    $window.localStorage.setItem('token', response.data.token);
+                    $location.path('/');
+                })
+        }
+});
+
+
     
 
 

@@ -1,5 +1,5 @@
 module.exports = {
-	"database": "mongodb://finfort:111@ds036178.mongolab.com:36178/userstory", 
+	"database": "mongodb://ovuncuzun:nano1350@ds117189.mlab.com:17189/ozzytest", 
 	 "port" : process.env.PORT || 8080,
 	 "secretKey" : "YourSecretKey"
 }

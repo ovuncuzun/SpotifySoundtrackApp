@@ -1,6 +1,11 @@
-angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controllers'])
+angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controllers', 'mainCtrl', 'authService', 'userService', 'userCtrl'])
 
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+    
+        $httpProvider.defaults.headers.common = {};
+        $httpProvider.defaults.headers.post = {};
+        $httpProvider.defaults.headers.put = {};
+        $httpProvider.defaults.headers.patch = {};
 
         $urlRouterProvider.otherwise('discover');
 
@@ -32,6 +37,17 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
                 templateUrl: 'templates/admin.html',
                 controller: 'AdminCtrl'
             })
+        
+            .state('login', {
+                 url: '/login',
+			     templateUrl: 'templates/login.html'
+            })
+        
+            .state('signup',{
+                url: '/signup',
+                templateUrl: 'templates/signup.html'
+            })
 
 
-    })
+    });
+
