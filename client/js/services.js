@@ -24,7 +24,7 @@ angular.module('SpotifyApp.services', [])
         o.getNextSongs = function() {
             return $http({
                 method: 'GET',
-                url: 'http://localhost:8080/api/soundtracks'
+                url: '/api/soundtracks'
             }).success(function(data){
                 // merge data into the queue
                 o.queue = o.queue.concat(data);
@@ -87,7 +87,7 @@ angular.module('authService', [])
         authFactory.login =  function(username, password){
         console.log("authFactory.login");
 
-            return $http.post('http://localhost:8080/api/login',{
+            return $http.post('/api/login',{
                 username : username,
                 password : password
             })
@@ -115,7 +115,7 @@ angular.module('authService', [])
 
         authFactory.getUser = function(){
             if(AuthToken.getToken()){
-                return $http.get('http://localhost:8080/api/me');
+                return $http.get('/api/me');
             }else{
                 return $q.reject({ message: "User has no token"});
             }
@@ -181,7 +181,7 @@ angular.module('userService', [])
         userFactory.create = function(userData){
             return $http({
                 method: 'POST',
-                url: 'http://localhost:8080/api/signup',
+                url: '/api/signup',
                 data: {userData}
             })
         }
@@ -189,7 +189,7 @@ angular.module('userService', [])
          userFactory.all = function(userData){
             return $http({
                 method: 'GET',
-                url: 'http://localhost:8080/api/users'
+                url: '/api/users'
             })
         }
 
