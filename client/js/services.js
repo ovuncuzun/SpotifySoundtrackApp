@@ -178,11 +178,12 @@ angular.module('userService', [])
 
         var userFactory = {};
          
+        
         userFactory.create = function(userData){
             return $http({
                 method: 'POST',
                 url: '/api/signup',
-                data: JSON.stringify(userData),
+                data: JSON.stringify(userData), //from serialized data to JSON
                 headers: {'Content-Type': 'application/json'}
             })
         }
