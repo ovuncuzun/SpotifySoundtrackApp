@@ -182,7 +182,8 @@ angular.module('userService', [])
             return $http({
                 method: 'POST',
                 url: '/api/signup',
-                data: {userData}
+                data: JSON.stringify(userData),
+                headers: {'Content-Type': 'application/json'}
             })
         }
         
