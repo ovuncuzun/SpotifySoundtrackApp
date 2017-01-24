@@ -103,17 +103,19 @@ angular.module('authService', [])
 
 
         authFactory.isLoggedIn = function(){
-        console.log("isloggedIn");
 
             if(AuthToken.getToken()){
+                console.log("isloggedIn is true");
                 return true;
             }else{
+                console.log("isloggedIn is false");
                 return false;
             }
 
         }
 
         authFactory.getUser = function(){
+            console.log("ozzy44")
             if(AuthToken.getToken()){
                 return $http.get('/api/me');
             }else{

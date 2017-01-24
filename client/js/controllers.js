@@ -119,15 +119,16 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
 angular.module('mainCtrl', ['authService'])
 
-.controller('MainController', function($rootScope, $location, Auth){
-
+.controller('MainController', function($rootScope, $state, Auth){
+    console.log("ozzy11")
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
-	$rootScope.$on('$routeChangeStart', function(){
+	$rootScope.$on('$stateChangeStart', function(){
 		vm.loggedIn = Auth.isLoggedIn();
-
+        console.log("ozzy22")
 		Auth.getUser()
 			.then(function(data){
+                console.log("ozzy33")
 				vm.user = data.data;
 			});
 	});
@@ -148,7 +149,7 @@ angular.module('mainCtrl', ['authService'])
 					});
 
 				if(data.success)
-					$location.path('/');
+                    $state.go('/');
 				else
 					vm.error = data.message;
 			});
@@ -157,7 +158,7 @@ angular.module('mainCtrl', ['authService'])
 	// Use AUth service to logout
 	vm.doLogout = function(){
 		Auth.logout();
-		$location.path('/logout');
+		$state.go('discover');
 	};
 })
 
@@ -171,7 +172,7 @@ angular.module('userCtrl',['userService'])
 			})
 	})
 
-	.controller('userCreateController', function(User, $location, $window){
+	.controller('userCreateController', function(User, $state, $window){
 
 		var vm = this;
 
@@ -187,7 +188,7 @@ angular.module('userCtrl',['userService'])
                     vm.message = response.data.message;
 
                     $window.localStorage.setItem('token', response.data.token);
-                    $location.path('/');
+                    $state.go('/');
                 })
         }
 });

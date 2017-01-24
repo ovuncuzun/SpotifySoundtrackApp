@@ -18,7 +18,7 @@
     <script src="js/services.js"></script>
     <script src="js/utils.js"></script>
 </head>
-<body ng-app="SpotifyApp">
+<body ng-app="SpotifyApp" ng-controller="MainController as main">
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -50,9 +50,10 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-						<li><a ui-sref="login">Login</a></li>
-						<li><a ui-sref="signup">Signup</a></li>
-						<li><a href="/#" ng-click="main.doLogout()">Logout</a></li>
+                        <li ng-if="!main.loggedIn"><a ui-sref="login">Login</a></li>
+						<li ng-if="!main.loggedIn"><a ui-sref="signup">Signup</a></li>
+						<li ng-if="main.loggedIn"><a ui-sref="/">Hello {{main.user.username}}</a></li>
+						<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
 
 				</ul>
             </div>

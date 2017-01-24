@@ -212,6 +212,7 @@ module.exports = function(app, express, io){
 
     // for angular
 		api.get('/me', function(req,res){
+            console.log("me is called");
 			res.json(req.decoded);
 		});
     
