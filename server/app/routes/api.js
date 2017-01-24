@@ -8,7 +8,6 @@ var SpotifyWebApi = require("../src/spotify-web-api");
 
 var User = require('../models/user');
 
-var Story = require('../models/story');
 
 function createToken(user){
     console.log('creating token');
@@ -78,19 +77,6 @@ module.exports = function(app, express, io){
 
 	});
     
-    api.get('/all_stories', function(req,res){
-
-		Story.find({},function(err, stories){
-
-			if(err){
-				res.send(err);
-			return;
-			}
-			res.json(stories);
-		});
-	});
-
-
 	api.post('/signup', function(req,res){
 		var user = new User({
 			name: req.body.name,
@@ -176,46 +162,11 @@ module.exports = function(app, express, io){
 	});
 
 
-	
-	api.route('/')
-		.post(function(req,res){
-
-			var story = new Story({
-				creator: req.decoded.id,
-				content: req.body.content,
-
-			});
-
-			story.save(function(err, newStory){
-				if(err){
-					res.send(err);
-					return;
-				}
-
-				//realtime 
-				io.emit('story', newStory);
-
-				res.json({ message: "New Story created"});
-			})
-		})
-
-		.get(function(req,res){
-
-			Story.find({ creator: req.decoded.id}, function(err, stories){
-				if(err){
-					res.send(err);
-					return;
-				}
-				res.json(stories);
-			});
-		});
-
-
     // for angular
-		api.get('/me', function(req,res){
-            console.log("me is called");
-			res.json(req.decoded);
-		});
+    api.get('/me', function(req,res){
+        console.log("me is called");
+        res.json(req.decoded);
+    });
     
 
 	return api;
