@@ -7,13 +7,13 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
         $httpProvider.defaults.headers.put = {};
         $httpProvider.defaults.headers.patch = {};
 
-        $urlRouterProvider.otherwise('discover');
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider
             .state('/', {
-                url: '/discover',
-                templateUrl: 'templates/discover.html',
-                controller: 'DiscoverCtrl'
+                url: '/',
+                templateUrl: 'templates/home.html',
+                controller: 'MainController',
             })
         
             .state('discover', {
@@ -52,6 +52,12 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
             .state('signup',{
                 url: '/signup',
                 templateUrl: 'templates/signup.html'
+            })
+        
+            .state('logout', {
+                url: '/admin',
+                templateUrl: 'templates/admin.html',
+                controller: 'AdminCtrl'
             })
 
 

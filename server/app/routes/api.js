@@ -125,7 +125,8 @@ module.exports = function(app, express, io){
 
 	
 	api.post('/login', function(req, res){
-
+        console.log("osbourne1")
+        console.log(req.body.username)
 		User.findOne({ 
 			username: req.body.username
 		}).select('name username password').exec(function(err,user){
@@ -133,12 +134,13 @@ module.exports = function(app, express, io){
 			if(err) throw err;
 			if(!user) {
 				res.send({ message: "User doesnt exist"});
-			}else	if(user){
+			} 
+            else if(user) {
 				var validPassword = user.comparePassword(req.body.password);
 				if(!validPassword){
 					res.send({ message: "Invalid password"});
 
-				}else{
+				} else{
 					///// token
 					var token = createToken(user);
 					res.json({
@@ -147,7 +149,6 @@ module.exports = function(app, express, io){
 						token: token
 					});
 				}
-
 			}
 
 		});

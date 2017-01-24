@@ -1,1 +1,21 @@
-home
+
+<div class="jumbotron text-center" ng-if="!main.loggedIn">
+
+	<div>
+		<h1>Sign up!</h1>
+	</div>
+
+
+	<div>
+		<p> Login to write your story</p>
+		<a ui-sref="login" class="btn btn-primary">Login</a>
+
+	</div>
+
+</div>
+
+<div class = "row" ng-if="main.loggedIn">
+	<div class="col-md-3">
+        Hello {{main.user.username}}
+	</div>
+</div>

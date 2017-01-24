@@ -119,16 +119,14 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
 angular.module('mainCtrl', ['authService'])
 
-.controller('MainController', function($rootScope, $state, Auth){
-    console.log("ozzy11")
+.controller('MainController', function($rootScope, $state, Auth, SpotifySoundtracks){
+    SpotifySoundtracks.haltAudio();
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
 	$rootScope.$on('$stateChangeStart', function(){
 		vm.loggedIn = Auth.isLoggedIn();
-        console.log("ozzy22")
 		Auth.getUser()
 			.then(function(data){
-                console.log("ozzy33")
 				vm.user = data.data;
 			});
 	});
@@ -148,23 +146,32 @@ angular.module('mainCtrl', ['authService'])
 						vm.user = data.data;
 					});
 
-				if(data.success)
-                    $state.go('/');
-				else
+				if(data.success) {
+                    console.log("ozzy1")
+                    console.log(data.message);
+                    $state.go('discover');
+                }
+				else {
+                    console.log("ozzy2")
+                    console.log(data.message);
 					vm.error = data.message;
+                    
+                }
+                    
 			});
 	};
 
 	// Use AUth service to logout
 	vm.doLogout = function(){
 		Auth.logout();
-		$state.go('discover');
+		$state.go('signup');
 	};
 })
 
 angular.module('userCtrl',['userService'])
 	
-	.controller('userController', function(User){
+	.controller('userController', function(User, SpotifySoundtracks){
+        SpotifySoundtracks.haltAudio();
 		var vm = this;
 		User.all()
 			.success(function(data){
@@ -172,10 +179,9 @@ angular.module('userCtrl',['userService'])
 			})
 	})
 
-	.controller('userCreateController', function(User, $state, $window){
-
+	.controller('userCreateController', function(User, $state, $window, SpotifySoundtracks){
+        SpotifySoundtracks.haltAudio();
 		var vm = this;
-
         vm.signupUser = function(){
 
             console.log("Trying to create user!");

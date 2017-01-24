@@ -87,9 +87,14 @@ angular.module('authService', [])
         authFactory.login =  function(username, password){
         console.log("authFactory.login");
 
-            return $http.post('/api/login',{
-                username : username,
-                password : password
+             return $http({
+                method: 'POST',
+                url: '/api/login',
+                data: JSON.stringify({
+                    username : username,
+                    password : password
+                }),
+                headers: {'Content-Type': 'application/json'}
             })
             .success(function(data){
                 AuthToken.setToken(data.token);
@@ -115,7 +120,7 @@ angular.module('authService', [])
         }
 
         authFactory.getUser = function(){
-            console.log("ozzy44")
+            console.log("getUser is called");
             if(AuthToken.getToken()){
                 return $http.get('/api/me');
             }else{
