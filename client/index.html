@@ -37,7 +37,11 @@
                     <li><a ui-sref="leaderboard" ng-click='navCollapsed = true'>Leaderboard</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a ui-sref="profile" ng-click='navCollapsed = true'>Profile</a></li>
+                    <li ng-if="!main.loggedIn"><a ui-sref="login">Login</a></li>
+					<li ng-if="!main.loggedIn"><a ui-sref="signup">Sign Up</a></li>
+					<li ng-if="main.loggedIn"><a ui-sref="/">Hello {{main.user.username}}</a></li>
+					<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
+                    
                     <li class="dropdown" uib-dropdown>
                         <a class="dropdown-toggle" uib-dropdown-toggle>
                             <i class="fa fa-cogs"></i> Admin
@@ -50,10 +54,7 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-                        <li ng-if="!main.loggedIn"><a ui-sref="login">Login</a></li>
-						<li ng-if="!main.loggedIn"><a ui-sref="signup">Signup</a></li>
-						<li ng-if="main.loggedIn"><a ui-sref="/">Hello {{main.user.username}}</a></li>
-						<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
+                        
 
 				</ul>
             </div>
