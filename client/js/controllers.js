@@ -78,6 +78,12 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     position: "center",
                     duration: 800
                 });
+                SpotifySoundtracks.addSoundTrack({
+                    soundTrackGuess : true,
+                    currentSong : $scope.currentSong,
+                });
+                
+                
             } else {
                 notify({
                     message: "Oh snap!",
@@ -85,6 +91,10 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     templateUrl: "",
                     position: "center",
                     duration: 800
+                });
+                SpotifySoundtracks.addSoundTrack({
+                    soundTrackGuess : false,
+                    currentSong : $scope.currentSong,
                 });
             }
 

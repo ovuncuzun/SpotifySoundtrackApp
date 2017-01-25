@@ -7,7 +7,7 @@ var jsonwebtoken = require('jsonwebtoken');
 var SpotifyWebApi = require("../src/spotify-web-api");
 
 var User = require('../models/user');
-
+var SoundTrack = require('../models/soundtrack');
 
 function createToken(user){
     console.log('creating token');
@@ -111,8 +111,6 @@ module.exports = function(app, express, io){
 
 	
 	api.post('/login', function(req, res){
-        console.log("osbourne1")
-        console.log(req.body.username)
 		User.findOne({ 
 			username: req.body.username
 		}).select('name username password').exec(function(err,user){
@@ -162,10 +160,26 @@ module.exports = function(app, express, io){
 	});
 
 
-    // for angular
     api.get('/me', function(req,res){
         console.log("me is called");
         res.json(req.decoded);
+    });
+    
+    api.post('/soundtrack', function(req,res){
+        console.log("soundtrack is called");
+        var soundtrack = new SoundTrack({
+            creator: req.decoded.id,
+            soundTrackGuess: req.body.soundTrackGuess,
+        });
+
+        soundtrack.save(function(err){
+            if(err){
+                res.send(err);
+                return;
+            }
+
+            res.json({ message: "Soundtrack created"});
+        })
     });
     
 

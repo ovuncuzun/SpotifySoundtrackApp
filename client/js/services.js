@@ -72,6 +72,16 @@ angular.module('SpotifyApp.services', [])
             o.queue = [];
         }
         
+        o.addSoundTrack = function(soundTrackData) {
+            console.log(soundTrackData);
+            return $http({
+                method: 'POST',
+                url: '/api/soundtrack',
+                data: JSON.stringify(soundTrackData), //from serialized data to JSON
+                headers: {'Content-Type': 'application/json'}
+            })
+        }
+        
         
 
         return o;
@@ -204,3 +214,5 @@ angular.module('userService', [])
 
         return userFactory;
     })
+
+
