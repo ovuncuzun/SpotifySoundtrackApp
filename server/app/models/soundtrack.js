@@ -9,6 +9,7 @@ var SoundTrackSchema = new Schema({
     soundTrackMovie : String,
     soundTrackImage : String,
     soundTrackPreviewURL : String, 
+    soundTrackPopularity : String,
 	created: { type: Date, default: Date.now}
 });
 

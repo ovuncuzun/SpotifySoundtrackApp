@@ -174,7 +174,8 @@ module.exports = function(app, express, io){
             soundTrackName : req.body.currentSong.name,
             soundTrackMovie : req.body.currentSong.album.name,
             soundTrackImage : req.body.currentSong.album.images[0].url,
-            soundTrackPreviewURL : req.body.currentSong.preview_url
+            soundTrackPreviewURL : req.body.currentSong.preview_url,
+            soundTrackPopularity : req.body.currentSong.popularity
         });
 
         soundtrack.save(function(err){
