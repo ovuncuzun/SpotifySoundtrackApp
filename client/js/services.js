@@ -73,7 +73,6 @@ angular.module('SpotifyApp.services', [])
         }
         
         o.addSoundTrack = function(soundTrackData) {
-            console.log(soundTrackData);
             return $http({
                 method: 'POST',
                 url: '/api/soundtrack',

@@ -169,7 +169,12 @@ module.exports = function(app, express, io){
         console.log("soundtrack is called");
         var soundtrack = new SoundTrack({
             creator: req.decoded.id,
+            soundTrackID : req.body.currentSong.id,
             soundTrackGuess: req.body.soundTrackGuess,
+            soundTrackName : req.body.currentSong.name,
+            soundTrackMovie : req.body.currentSong.album.name,
+            soundTrackImage : req.body.currentSong.album.images[0].url,
+            soundTrackPreviewURL : req.body.currentSong.preview_url
         });
 
         soundtrack.save(function(err){
