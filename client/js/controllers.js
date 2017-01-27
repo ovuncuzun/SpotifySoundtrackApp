@@ -157,13 +157,9 @@ angular.module('mainCtrl', ['authService'])
 					});
 
 				if(data.success) {
-                    console.log("ozzy1")
-                    console.log(data.message);
                     $state.go('discover');
                 }
 				else {
-                    console.log("ozzy2")
-                    console.log(data.message);
 					vm.error = data.message;
                     
                 }
