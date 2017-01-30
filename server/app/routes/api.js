@@ -188,6 +188,18 @@ module.exports = function(app, express, io){
         })
     });
     
+    api.get('/getsoundtrackguesses', function(req,res){
+
+		SoundTrack.find({creator: req.decoded.id},function(err, soundtrackguesses){
+
+			if(err){
+				res.send(err);
+			return;
+			}
+			res.json(soundtrackguesses);
+		});
+	});
+    
 
 	return api;
 }

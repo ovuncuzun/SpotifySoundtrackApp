@@ -3,8 +3,11 @@ angular.module('SpotifyApp.services', [])
     .factory('SpotifySoundtracks', function($q, $http) {
 
         var o = {
-            queue: []
+            queue: [],
+            soundTrackGuessList : []
         };
+    
+        
 
         // placeholder for the media player
         var media;
@@ -81,6 +84,15 @@ angular.module('SpotifyApp.services', [])
             })
         }
         
+        o.getSoundTrackGuesses = function () {
+            return $http({
+                method: 'GET',
+                url: '/api/getsoundtrackguesses'
+            }).success(function(data){
+                // merge data into the queue
+                o.soundTrackGuessList = data;
+            });
+        }
         
 
         return o;

@@ -111,6 +111,10 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
             });
 
         }
+        
+        $scope.getSoundTrackGuessList = function () {
+            $scope.SoundTrackGuessList = SpotifySoundtracks.getSoundTrackGuesses();
+        }
 
     })
 
@@ -129,8 +133,10 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
 angular.module('mainCtrl', ['authService'])
 
-.controller('MainController', function($rootScope, $state, Auth, SpotifySoundtracks){
+.controller('MainController', function($rootScope, $scope, $state, Auth, SpotifySoundtracks){
     SpotifySoundtracks.haltAudio();
+    SpotifySoundtracks.getSoundTrackGuesses();
+    $scope.SoundTrackGuessList = SpotifySoundtracks.soundTrackGuessList;
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
 	$rootScope.$on('$stateChangeStart', function(){
