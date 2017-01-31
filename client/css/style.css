@@ -73,3 +73,14 @@ body {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.glyphicon.glyphicon-ok {
+    font-size: 30px;
+    color: green;
+}
+
+.glyphicon.glyphicon-remove {
+    font-size: 30px;
+    color: red;
+    
+}

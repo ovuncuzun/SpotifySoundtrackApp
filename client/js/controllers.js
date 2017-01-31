@@ -136,7 +136,7 @@ angular.module('mainCtrl', ['authService'])
 .controller('MainController', function($rootScope, $scope, $state, Auth, SpotifySoundtracks){
     SpotifySoundtracks.haltAudio();
     SpotifySoundtracks.getSoundTrackGuesses();
-    $scope.SoundTrackGuessList = SpotifySoundtracks.soundTrackGuessList;
+    $scope.rowCollection = SpotifySoundtracks.soundTrackGuessList;
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
 	$rootScope.$on('$stateChangeStart', function(){
