@@ -88,9 +88,6 @@ angular.module('SpotifyApp.services', [])
             return $http({
                 method: 'GET',
                 url: '/api/getsoundtrackguesses'
-            }).success(function(data){
-                // merge data into the queue
-                o.soundTrackGuessList = data;
             });
         }
         

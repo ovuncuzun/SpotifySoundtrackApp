@@ -134,19 +134,23 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 angular.module('mainCtrl', ['authService'])
 
 .controller('MainController', function($rootScope, $scope, $state, Auth, SpotifySoundtracks){
-    SpotifySoundtracks.haltAudio();
-    SpotifySoundtracks.getSoundTrackGuesses();
-    $scope.rowCollection = SpotifySoundtracks.soundTrackGuessList;
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
+    
 	$rootScope.$on('$stateChangeStart', function(){
+        SpotifySoundtracks.haltAudio();
+        SpotifySoundtracks.getSoundTrackGuesses()
+            .success(function(data){
+                $scope.rowCollection = data;
+            });
+        
 		vm.loggedIn = Auth.isLoggedIn();
 		Auth.getUser()
 			.then(function(data){
 				vm.user = data.data;
 			});
 	});
-    // Use AUth service to login
+    
 	vm.doLogin = function(){
 		console.log("Trying to login");
 
@@ -173,7 +177,6 @@ angular.module('mainCtrl', ['authService'])
 			});
 	};
 
-	// Use AUth service to logout
 	vm.doLogout = function(){
 		Auth.logout();
 		$state.go('signup');
