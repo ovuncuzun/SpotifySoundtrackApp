@@ -1,7 +1,7 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
-    
+        
         SpotifySoundtracks.init()
             .then(function(){
                 $scope.currentSong = SpotifySoundtracks.queue[0].track;
@@ -17,7 +17,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         $scope.$on('$destroy', function(event) {
           SpotifySoundtracks.removeAudio();
         });
-    
+        
 
         $scope.getSoundTrackImages = function () {
             var queueLength = SpotifySoundtracks.queue.length;

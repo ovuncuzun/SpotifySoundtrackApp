@@ -35,7 +35,7 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
             .state('profile', {
                 url: '/profile',
                 templateUrl: 'templates/profile.html',
-                controller: 'ProfileCtrl'
+                controller: 'MainController'
             })
         
             .state('admin', {

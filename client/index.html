@@ -39,7 +39,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-if="!main.loggedIn"><a ui-sref="login">Login</a></li>
 					<li ng-if="!main.loggedIn"><a ui-sref="signup">Sign Up</a></li>
-					<li ng-if="main.loggedIn"><a ui-sref="/">Hello {{main.user.username}}</a></li>
+					<li ng-if="main.loggedIn"><a ui-sref="profile">Hello {{main.user.username}}</a></li>
 					<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
                     
                     <li class="dropdown" uib-dropdown>

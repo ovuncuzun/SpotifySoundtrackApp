@@ -1,1 +1,27 @@
-profile
+<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-offset-2" ng-if="main.loggedIn">
+    <table st-table="rowCollection" class="table table-striped" >
+        <thead>
+        <tr>
+            <th>Movie Poster</th>
+            <th>Movie</th>   
+            <th>SoundTrack</th>
+            <th>Guess</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rowCollection">
+            <td><img ng-src="{{row.soundTrackImage}}" class="img-responsive"/></td>
+            <td>{{row.soundTrackMovie}}</td>
+            <td>{{row.soundTrackName}}</td>
+            <td>
+                <div ng-if="row.soundTrackGuess">
+                    <span class="glyphicon glyphicon-ok"> </span>
+                </div>
+                <div ng-if="!row.soundTrackGuess">
+                    <span class="glyphicon glyphicon-remove"> </span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
