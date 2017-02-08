@@ -160,7 +160,11 @@ angular.module('mainCtrl', ['authService'])
                     .success(function(data){
                         $scope.rowCollection = data;
                     });
-			});
+			})
+            .catch(function(errorCallback) {
+                vm.loggedIn = false
+                $state.go("login")
+            })
 	});
     
 	vm.doLogin = function(){
@@ -176,16 +180,18 @@ angular.module('mainCtrl', ['authService'])
 				Auth.getUser()
 					.then(function(data){
 						vm.user = data.data;
-					});
+					})
+                    .catch(function(errorCallback) {
+                        vm.loggedIn = false
+                        $state.go("login")
+                    })
 
 				if(data.success) {
                     $state.go('discover');
                 }
 				else {
 					vm.error = data.message;
-                    
-                }
-                    
+                }    
 			});
 	};
 
