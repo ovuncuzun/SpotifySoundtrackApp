@@ -1,7 +1,10 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
-        
+        $scope.userPoint = 0;
+        $scope.userGuessSuccessCount = 0;
+        $scope.userGuessFailCount = 0;
+    
         SpotifySoundtracks.init()
             .then(function(){
                 $scope.currentSong = SpotifySoundtracks.queue[0].track;
@@ -71,6 +74,10 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
         $scope.checkSong = function (soundTrackImageURL) {
             if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
+                $scope.userPoint = $scope.userPoint + 1
+                $scope.userGuessSuccessCount = $scope.userGuessSuccessCount + 1
+                console.log("$scope.userPoint")
+                console.log($scope.userPoint)
                 notify({
                     message: "Well done!",
                     classes: "alert-success",
@@ -85,6 +92,12 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                 
                 
             } else {
+                $scope.userGuessFailCount = $scope.userGuessFailCount + 1
+                if ($scope.userPoint > 0 && $scope.userGuessFailCount % 5 === 0) {
+                    $scope.userPoint = $scope.userPoint - 1
+                }
+                console.log("$scope.userPoint")
+                console.log($scope.userPoint)
                 notify({
                     message: "Oh snap!",
                     classes: "alert-danger",
