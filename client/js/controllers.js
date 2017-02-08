@@ -139,15 +139,14 @@ angular.module('mainCtrl', ['authService'])
     
 	$rootScope.$on('$stateChangeStart', function(){
         SpotifySoundtracks.haltAudio();
-        SpotifySoundtracks.getSoundTrackGuesses()
-            .success(function(data){
-                $scope.rowCollection = data;
-            });
-        
 		vm.loggedIn = Auth.isLoggedIn();
 		Auth.getUser()
 			.then(function(data){
 				vm.user = data.data;
+                SpotifySoundtracks.getSoundTrackGuesses()
+                    .success(function(data){
+                        $scope.rowCollection = data;
+                    });
 			});
 	});
     
