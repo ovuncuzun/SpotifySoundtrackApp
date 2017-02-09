@@ -178,6 +178,19 @@ angular.module('mainCtrl', ['authService'])
                     .success(function(data){
                         $scope.rowCollection = data;
                     });
+                $scope.userScore = 0;
+                $scope.userGuessSuccessCount = 0;
+                $scope.userGuessFailCount = 0;
+                SpotifySoundtracks.getUserScore()
+                    .success(function(data){
+                        $scope.userScore = data[0].userScore;
+                        $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
+                        $scope.userGuessFailCount = data[0].userGuessFailCount;
+
+                        console.log("$scope.userScore: " + $scope.userScore);
+                        console.log("$scope.userGuessSuccessCount: " + $scope.userGuessSuccessCount);
+                        console.log("$scope.userGuessFailCount: " + $scope.userGuessFailCount);
+                    });
 			})
             .catch(function(errorCallback) {
                 vm.loggedIn = false
