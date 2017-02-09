@@ -100,6 +100,13 @@ angular.module('SpotifyApp.services', [])
             });
         }
         
+         o.getUserScore = function () {
+            return $http({
+                method: 'GET',
+                url: '/api/getuserscore'
+            });
+        }
+        
 
         return o;
     });

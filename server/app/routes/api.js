@@ -212,6 +212,19 @@ module.exports = function(app, express, io){
         });
 	});
     
+     api.get('/getuserscore', function(req,res){
+        console.log("getuserscore is called");
+         
+        var query = {creator: req.decoded.id};
+        
+       	UserScore.find(query,function(err, userScoreData){
+			if(err){
+				res.send(err);
+                return;
+			}
+			res.json(userScoreData);
+		});
+	});
 
 	return api;
 }

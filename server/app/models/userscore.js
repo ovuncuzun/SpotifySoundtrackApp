@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserScoreSchema = new Schema({
-	creator : {type: Schema.Types.ObjectId, ref: 'User'},
+    creator : {type: Schema.Types.ObjectId, ref: 'User'},
     userScore : Number,
     userGuessSuccessCount : Number,
     userGuessFailCount  : Number,

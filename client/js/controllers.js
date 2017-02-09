@@ -1,9 +1,6 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
-        $scope.userScore = 0;
-        $scope.userGuessSuccessCount = 0;
-        $scope.userGuessFailCount = 0;
     
         SpotifySoundtracks.init()
             .then(function(){
@@ -15,8 +12,22 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
             .then(function(){
                 $scope.currentSong.loaded = true;
             });
+        $scope.userScore = 0;
+        $scope.userGuessSuccessCount = 0;
+        $scope.userGuessFailCount = 0;
+        SpotifySoundtracks.getUserScore()
+            .success(function(data){
+                $scope.userScore = data[0].userScore;
+                $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
+                $scope.userGuessFailCount = data[0].userGuessFailCount;
+            
+                console.log("$scope.userScore: " + $scope.userScore);
+                console.log("$scope.userGuessSuccessCount: " + $scope.userGuessSuccessCount);
+                console.log("$scope.userGuessFailCount: " + $scope.userGuessFailCount);
+            });
         
         
+    
         $scope.$on('$destroy', function(event) {
           SpotifySoundtracks.removeAudio();
         });
