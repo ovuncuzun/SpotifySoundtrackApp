@@ -163,7 +163,6 @@ angular.module('mainCtrl', ['authService'])
 			})
             .catch(function(errorCallback) {
                 vm.loggedIn = false
-                $state.go("login")
             })
 	});
     
@@ -181,10 +180,6 @@ angular.module('mainCtrl', ['authService'])
 					.then(function(data){
 						vm.user = data.data;
 					})
-                    .catch(function(errorCallback) {
-                        vm.loggedIn = false
-                        $state.go("login")
-                    })
 
 				if(data.success) {
                     $state.go('discover');
