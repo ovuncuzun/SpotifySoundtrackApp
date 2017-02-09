@@ -1,7 +1,7 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
-        $scope.userPoint = 0;
+        $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
         $scope.userGuessFailCount = 0;
     
@@ -74,10 +74,8 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
         $scope.checkSong = function (soundTrackImageURL) {
             if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
-                $scope.userPoint = $scope.userPoint + 1
+                $scope.userScore = $scope.userScore + 1
                 $scope.userGuessSuccessCount = $scope.userGuessSuccessCount + 1
-                console.log("$scope.userPoint")
-                console.log($scope.userPoint)
                 notify({
                     message: "Well done!",
                     classes: "alert-success",
@@ -90,14 +88,17 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     currentSong : $scope.currentSong,
                 });
                 
+                SpotifySoundtracks.saveUserScore({
+                    userScore : $scope.userScore,
+                    userGuessSuccessCount : $scope.userGuessSuccessCount,
+                    userGuessFailCount  : $scope.userGuessFailCount
+                });
                 
             } else {
                 $scope.userGuessFailCount = $scope.userGuessFailCount + 1
-                if ($scope.userPoint > 0 && $scope.userGuessFailCount % 5 === 0) {
-                    $scope.userPoint = $scope.userPoint - 1
+                if ($scope.userScore > 0 && $scope.userGuessFailCount % 5 === 0) {
+                    $scope.userScore = $scope.userScore - 1
                 }
-                console.log("$scope.userPoint")
-                console.log($scope.userPoint)
                 notify({
                     message: "Oh snap!",
                     classes: "alert-danger",
@@ -108,6 +109,12 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                 SpotifySoundtracks.addSoundTrack({
                     soundTrackGuess : false,
                     currentSong : $scope.currentSong,
+                });
+                
+                SpotifySoundtracks.saveUserScore({
+                    userScore : $scope.userScore,
+                    userGuessSuccessCount : $scope.userGuessSuccessCount,
+                    userGuessFailCount  : $scope.userGuessFailCount
                 });
             }
 
@@ -215,7 +222,6 @@ angular.module('userCtrl',['userService'])
             console.log("Trying to create user!");
 
             vm.message = '';
-
             User.create(vm.userData)
                 .then(function(response){
                     vm.userData = {};

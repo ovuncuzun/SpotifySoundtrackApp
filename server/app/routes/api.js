@@ -8,6 +8,7 @@ var SpotifyWebApi = require("../src/spotify-web-api");
 
 var User = require('../models/user');
 var SoundTrack = require('../models/soundtrack');
+var UserScore = require('../models/userscore');
 
 function createToken(user){
     console.log('creating token');
@@ -198,6 +199,17 @@ module.exports = function(app, express, io){
 			}
 			res.json(soundtrackguesses);
 		});
+	});
+    
+     api.post('/userscore', function(req,res){
+        console.log("userscore is called");
+         
+        var query = {creator: req.decoded.id};
+        
+        UserScore.findOneAndUpdate(query, req.body, {upsert:true}, function(err, doc){
+            if (err) return res.send(500, { error: err });
+            return res.send("succesfully saved");
+        });
 	});
     
 

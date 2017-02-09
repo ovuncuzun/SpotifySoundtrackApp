@@ -84,6 +84,15 @@ angular.module('SpotifyApp.services', [])
             })
         }
         
+        o.saveUserScore = function(userScoreData) {
+            return $http({
+                method: 'POST',
+                url: '/api/userscore',
+                data: JSON.stringify(userScoreData), //from serialized data to JSON
+                headers: {'Content-Type': 'application/json'}
+            })
+        }
+        
         o.getSoundTrackGuesses = function () {
             return $http({
                 method: 'GET',
@@ -123,7 +132,6 @@ angular.module('authService', [])
         authFactory.logout = function(){
             AuthToken.setToken();
         }
-
 
         authFactory.isLoggedIn = function(){
 
