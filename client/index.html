@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ui-sref="discover" ng-click='navCollapsed = true'>SpotifyApp</a>
+                <a class="navbar-brand" ui-sref="discover" ng-click='navCollapsed = true'>USoundTrack</a>
             </div>
 
             <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
@@ -43,7 +43,7 @@
 					<li ng-if="main.loggedIn"><a ui-sref="profile">Hello {{main.user.username}}</a></li>
 					<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
                     
-                    <li class="dropdown" uib-dropdown>
+                    <li class="dropdown" uib-dropdown ng-if="false">
                         <a class="dropdown-toggle" uib-dropdown-toggle>
                             <i class="fa fa-cogs"></i> Admin
                             <span class="caret"></span>

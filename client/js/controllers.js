@@ -20,10 +20,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                 $scope.userScore = data[0].userScore;
                 $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
                 $scope.userGuessFailCount = data[0].userGuessFailCount;
-            
-                console.log("$scope.userScore: " + $scope.userScore);
-                console.log("$scope.userGuessSuccessCount: " + $scope.userGuessSuccessCount);
-                console.log("$scope.userGuessFailCount: " + $scope.userGuessFailCount);
             });
         
         
@@ -186,10 +182,6 @@ angular.module('mainCtrl', ['authService'])
                         $scope.userScore = data[0].userScore;
                         $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
                         $scope.userGuessFailCount = data[0].userGuessFailCount;
-
-                        console.log("$scope.userScore: " + $scope.userScore);
-                        console.log("$scope.userGuessSuccessCount: " + $scope.userGuessSuccessCount);
-                        console.log("$scope.userGuessFailCount: " + $scope.userGuessFailCount);
                     });
 			})
             .catch(function(errorCallback) {
