@@ -9,6 +9,7 @@
   "author": "anatolii ruchka",
   "license": "ISC",
   "dependencies": {
+    "angular-smart-table" : "*",
     "bcrypt-nodejs": "*",
     "body-parser": "*",
     "express": "*",
