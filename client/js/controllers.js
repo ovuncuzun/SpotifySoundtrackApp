@@ -46,23 +46,23 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
             $scope.soundTrackImage3 = "";
 
             do {
-                $scope.soundTrackImage1 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
-            } while ($scope.soundTrackImage1 === $scope.currentSong.album.images[0].url);
+                $scope.soundTrackImage1 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+            } while ($scope.soundTrackImage1 === $scope.currentSong.album.images[1].url);
 
             do {
-                $scope.soundTrackImage2 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
-            } while ($scope.soundTrackImage2 === $scope.currentSong.album.images[0].url || $scope.soundTrackImage2 === $scope.soundTrackImage1 );
+                $scope.soundTrackImage2 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+            } while ($scope.soundTrackImage2 === $scope.currentSong.album.images[1].url || $scope.soundTrackImage2 === $scope.soundTrackImage1 );
 
             do {
-                $scope.soundTrackImage3 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[0].url;
-            } while ($scope.soundTrackImage3 === $scope.currentSong.album.images[0].url || $scope.soundTrackImage3 === $scope.soundTrackImage1 || $scope.soundTrackImage3 === $scope.soundTrackImage2 );
+                $scope.soundTrackImage3 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+            } while ($scope.soundTrackImage3 === $scope.currentSong.album.images[1].url || $scope.soundTrackImage3 === $scope.soundTrackImage1 || $scope.soundTrackImage3 === $scope.soundTrackImage2 );
 
             $scope.shuffledSoundTrackImages = $scope.shuffleSoundTrackImages();
         }
 
         $scope.shuffleSoundTrackImages = function () {
             $scope.soundTrackImagesArray = [
-                $scope.currentSong.album.images[0].url,
+                $scope.currentSong.album.images[1].url,
                 $scope.soundTrackImage1,
                 $scope.soundTrackImage2,
                 $scope.soundTrackImage3
@@ -89,7 +89,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         }
 
         $scope.checkSong = function (soundTrackImageURL) {
-            if (soundTrackImageURL === $scope.currentSong.album.images[0].url) {
+            if (soundTrackImageURL === $scope.currentSong.album.images[1].url) {
                 $scope.userScore = $scope.userScore + 1
                 $scope.userGuessSuccessCount = $scope.userGuessSuccessCount + 1
                 notify({
