@@ -59,7 +59,7 @@ module.exports = function(app, express, io){
 							data.body.items = data.body.items.concat(data2.body.items);
 							if(totalTracks <= data.body.items.length) {
 								soundTracksPlaylist = spotifyApi.randomizePlaylist(data.body.items);
-								res.json(soundTracksPlaylist);
+								res.json(soundTracksPlaylist.slice(0,10));
 							}
 						}, function(err) {
 							callback(err);
