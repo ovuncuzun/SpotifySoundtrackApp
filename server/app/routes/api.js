@@ -139,7 +139,7 @@ module.exports = function(app, express, io){
 		});
 	});
 
-    // middleware token // like police man
+    
 	api.use(function(req,res,next){
 
 		console.log("somebody just came to our app");
@@ -149,25 +149,30 @@ module.exports = function(app, express, io){
 			//verify
 			jsonwebtoken.verify(token, secretKey, function(err, decoded){
 				if(err) {
-					res.status(403).send({ success: false, message: "Failed to authenticate user"});
+                    next();
+					//res.status(403).send({ success: false, message: "Failed to authenticate user"});
 				}else{
 					req.decoded =  decoded;
 					next();
 				}
 			});
-		}else{
-			res.status(403).send({ success: false, message: "No token provided"});
 		}
+        
+        else{
+            next();
+			//res.status(403).send({ success: false, message: "No token provided"});
+		} 
 	});
 
-
     api.get('/me', function(req,res){
+        
         console.log("me is called");
         res.json(req.decoded);
     });
     
     api.post('/soundtrack', function(req,res){
         console.log("soundtrack is called");
+        
         var soundtrack = new SoundTrack({
             creator: req.decoded.id,
             soundTrackID : req.body.currentSong.id,
@@ -190,7 +195,8 @@ module.exports = function(app, express, io){
     });
     
     api.get('/getsoundtrackguesses', function(req,res){
-
+        console.log("getsoundtrackguesses is called");
+        
 		SoundTrack.find({creator: req.decoded.id},function(err, soundtrackguesses){
 
 			if(err){
@@ -202,7 +208,7 @@ module.exports = function(app, express, io){
 	});
     
      api.post('/userscore', function(req,res){
-        console.log("userscore is called");
+        console.log("postuserscore is called");
          
         var query = {creator: req.decoded.id};
         
@@ -223,6 +229,18 @@ module.exports = function(app, express, io){
                 return;
 			}
 			res.json(userScoreData);
+		});
+	});
+    
+    api.get('/getallusers', function(req, res){
+        console.log("getallusers is called");
+        
+		UserScore.find({}, null, {sort: '-userScore'}, function(err, users){
+			if(err){
+				res.send(err);
+				return;
+			}
+			res.json(users);
 		});
 	});
 

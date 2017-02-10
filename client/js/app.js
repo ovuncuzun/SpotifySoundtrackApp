@@ -23,13 +23,15 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
             })
         
             .state('home', {
-                url: '/discover'
+                url: '/home',
+                templateUrl: 'templates/home.html',
+                controller: 'MainController',
             })
 
             .state('leaderboard', {
                 url: '/leaderboard',
                 templateUrl: 'templates/leaderboard.html',
-                controller: 'TrainingCtrl'
+                controller: 'LeaderboardCtrl'
             })
     
             .state('profile', {

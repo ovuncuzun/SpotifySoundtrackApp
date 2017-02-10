@@ -1,6 +1,12 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
-    .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify) {
+    .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify, Auth) {
+        
+        Auth.getUser()
+			.then(function(data){
+				$scope.user = data.data;
+			})
+        $scope.loggedIn = Auth.isLoggedIn();
     
         SpotifySoundtracks.init()
             .then(function(){
@@ -15,13 +21,16 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
         $scope.userGuessFailCount = 0;
-        SpotifySoundtracks.getUserScore()
-            .success(function(data){
-                $scope.userScore = data[0].userScore;
-                $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
-                $scope.userGuessFailCount = data[0].userGuessFailCount;
-            });
-        
+        if($scope.loggedIn){
+            SpotifySoundtracks.getUserScore()
+                .success(function(data){
+                    if (data.length > 0) {
+                        $scope.userScore = data[0].userScore;
+                        $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
+                        $scope.userGuessFailCount = data[0].userGuessFailCount;
+                    }
+                });
+        }
         
     
         $scope.$on('$destroy', function(event) {
@@ -90,16 +99,18 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     position: "center",
                     duration: 800
                 });
-                SpotifySoundtracks.addSoundTrack({
-                    soundTrackGuess : true,
-                    currentSong : $scope.currentSong,
-                });
-                
-                SpotifySoundtracks.saveUserScore({
-                    userScore : $scope.userScore,
-                    userGuessSuccessCount : $scope.userGuessSuccessCount,
-                    userGuessFailCount  : $scope.userGuessFailCount
-                });
+                if($scope.loggedIn) {
+                    SpotifySoundtracks.addSoundTrack({
+                        soundTrackGuess : true,
+                        currentSong : $scope.currentSong,
+                    });
+                    SpotifySoundtracks.saveUserScore({
+                        userName : $scope.user.username,
+                        userScore : $scope.userScore,
+                        userGuessSuccessCount : $scope.userGuessSuccessCount,
+                        userGuessFailCount  : $scope.userGuessFailCount
+                    });
+                }
                 
             } else {
                 $scope.userGuessFailCount = $scope.userGuessFailCount + 1
@@ -113,16 +124,18 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     position: "center",
                     duration: 800
                 });
-                SpotifySoundtracks.addSoundTrack({
-                    soundTrackGuess : false,
-                    currentSong : $scope.currentSong,
-                });
-                
-                SpotifySoundtracks.saveUserScore({
-                    userScore : $scope.userScore,
-                    userGuessSuccessCount : $scope.userGuessSuccessCount,
-                    userGuessFailCount  : $scope.userGuessFailCount
-                });
+                if($scope.loggedIn) {
+                    SpotifySoundtracks.addSoundTrack({
+                        soundTrackGuess : false,
+                        currentSong : $scope.currentSong,
+                    });
+                    SpotifySoundtracks.saveUserScore({
+                        userName : $scope.user.username,
+                        userScore : $scope.userScore,
+                        userGuessSuccessCount : $scope.userGuessSuccessCount,
+                        userGuessFailCount  : $scope.userGuessFailCount
+                    });
+                }
             }
 
             SpotifySoundtracks.nextSong();
@@ -145,8 +158,14 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     })
 
-    .controller('TrainingCtrl', function($scope, SpotifySoundtracks) {
+    .controller('LeaderboardCtrl', function($scope, SpotifySoundtracks) {
         SpotifySoundtracks.haltAudio();
+        SpotifySoundtracks.getAllUsers()
+            .success(function(data){
+                $scope.rowCollection = data;
+            });
+        
+    
     })
 
     .controller('ProfileCtrl', function($scope, SpotifySoundtracks) {
@@ -163,7 +182,7 @@ angular.module('mainCtrl', ['authService'])
 .controller('MainController', function($rootScope, $scope, $state, Auth, SpotifySoundtracks){
 	var vm = this;
 	vm.loggedIn = Auth.isLoggedIn();
-    
+    console.log("MainController is called")
 	$rootScope.$on('$stateChangeStart', function(){
         SpotifySoundtracks.haltAudio();
 		vm.loggedIn = Auth.isLoggedIn();
@@ -177,12 +196,16 @@ angular.module('mainCtrl', ['authService'])
                 $scope.userScore = 0;
                 $scope.userGuessSuccessCount = 0;
                 $scope.userGuessFailCount = 0;
-                SpotifySoundtracks.getUserScore()
-                    .success(function(data){
-                        $scope.userScore = data[0].userScore;
-                        $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
-                        $scope.userGuessFailCount = data[0].userGuessFailCount;
-                    });
+                if(vm.loggedIn) {
+                    SpotifySoundtracks.getUserScore()
+                        .success(function(data){
+                            if (data.length > 0) {
+                                $scope.userScore = data[0].userScore;
+                                $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
+                                $scope.userGuessFailCount = data[0].userGuessFailCount;
+                            }
+                        });
+                }
 			})
             .catch(function(errorCallback) {
                 vm.loggedIn = false
@@ -191,14 +214,14 @@ angular.module('mainCtrl', ['authService'])
     
 	vm.doLogin = function(){
 		console.log("Trying to login");
-
+        
 		vm.processing = true;
 		vm.error = '';
 
 		Auth.login(vm.loginData.username, vm.loginData.password)
 			.success(function(data){
 				vm.processing = false;
-
+                console.log("Auth.login success");
 				Auth.getUser()
 					.then(function(data){
 						vm.user = data.data;
@@ -208,6 +231,7 @@ angular.module('mainCtrl', ['authService'])
                     $state.go('discover');
                 }
 				else {
+                    console.log("data.message");
 					vm.error = data.message;
                 }    
 			});
@@ -221,15 +245,6 @@ angular.module('mainCtrl', ['authService'])
 
 angular.module('userCtrl',['userService'])
 	
-	.controller('userController', function(User, SpotifySoundtracks){
-        SpotifySoundtracks.haltAudio();
-		var vm = this;
-		User.all()
-			.success(function(data){
-				vm.users= data;
-			})
-	})
-
 	.controller('userCreateController', function(User, $state, $window, SpotifySoundtracks){
         SpotifySoundtracks.haltAudio();
 		var vm = this;

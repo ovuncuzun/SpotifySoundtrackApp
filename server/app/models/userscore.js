@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var UserScoreSchema = new Schema({
     creator : {type: Schema.Types.ObjectId, ref: 'User'},
+    userName : String,
     userScore : Number,
     userGuessSuccessCount : Number,
     userGuessFailCount  : Number,

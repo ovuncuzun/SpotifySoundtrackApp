@@ -1,1 +1,18 @@
-leaderboard
+<div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-offset-2">
+    <table st-table="rowCollection" class="table table-striped" >
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>UserName</th>
+            <th>Score</th>  
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rowCollection">
+            <td>{{rowCollection.indexOf(row) + 1}}</td>
+            <td>{{row.userName}}</td>
+            <td>{{row.userScore}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
