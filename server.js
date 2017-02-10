@@ -21,13 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/client'));
 
 var api  = require('./app/routes/api')(app, express, io);
 app.use('/api', api);
 
 app.get('*', function(req,res){
-	res.sendFile(__dirname  + '/../client/index.html');
+	res.sendFile(__dirname  + '/client/index.html');
 })
  
 http.listen(config.port, function(err) {
