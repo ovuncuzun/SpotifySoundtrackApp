@@ -10,7 +10,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
     
         SpotifySoundtracks.init()
             .then(function(){
-                $scope.currentSong = SpotifySoundtracks.queue[0].track;
+                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
                 $scope.getSoundTrackImages();
                 return SpotifySoundtracks.playCurrentSong();
 
@@ -39,22 +39,32 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         
 
         $scope.getSoundTrackImages = function () {
-            var queueLength = SpotifySoundtracks.queue.length;
+            var queueLength = SpotifySoundtracks.queueImages.length;
 
             $scope.soundTrackImage1 = "";
             $scope.soundTrackImage2 = "";
             $scope.soundTrackImage3 = "";
-
+           
             do {
-                $scope.soundTrackImage1 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+                var random1 = $scope.getRandomInt(0,queueLength - 1)
+                $scope.soundTrackImage1 = SpotifySoundtracks.queueImages[random1].track.album.images[1].url;
+                //console.log("$scope.soundTrackImage1 is called")
+                //console.log($scope.soundTrackImage1)
             } while ($scope.soundTrackImage1 === $scope.currentSong.album.images[1].url);
-
+            
+       
             do {
-                $scope.soundTrackImage2 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+                var random2 = $scope.getRandomInt(0,queueLength - 1)
+                $scope.soundTrackImage2 = SpotifySoundtracks.queueImages[random2].track.album.images[1].url;
+                //console.log("$scope.soundTrackImage2 is called")
+                //console.log($scope.soundTrackImage2)
             } while ($scope.soundTrackImage2 === $scope.currentSong.album.images[1].url || $scope.soundTrackImage2 === $scope.soundTrackImage1 );
-
+            
             do {
-                $scope.soundTrackImage3 = SpotifySoundtracks.queue[$scope.getRandomInt(0,queueLength)].track.album.images[1].url;
+                var random3 = $scope.getRandomInt(0,queueLength - 1)
+                $scope.soundTrackImage3 = SpotifySoundtracks.queueImages[random3].track.album.images[1].url;
+                //console.log("$scope.soundTrackImage3 is called")
+                //console.log($scope.soundTrackImage3)
             } while ($scope.soundTrackImage3 === $scope.currentSong.album.images[1].url || $scope.soundTrackImage3 === $scope.soundTrackImage1 || $scope.soundTrackImage3 === $scope.soundTrackImage2 );
 
             $scope.shuffledSoundTrackImages = $scope.shuffleSoundTrackImages();
@@ -140,7 +150,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
             SpotifySoundtracks.nextSong();
             $timeout(function() {
-                $scope.currentSong = SpotifySoundtracks.queue[0].track;
+                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
                 $scope.getSoundTrackImages();
                 $scope.currentSong.loaded = false;
 

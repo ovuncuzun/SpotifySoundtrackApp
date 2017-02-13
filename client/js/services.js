@@ -3,7 +3,8 @@ angular.module('SpotifyApp.services', [])
     .factory('SpotifySoundtracks', function($q, $http) {
 
         var o = {
-            queue: [],
+            queueGuess: [],
+            queueImages: [],
             soundTrackGuessList : []
         };
     
@@ -13,8 +14,8 @@ angular.module('SpotifyApp.services', [])
         var media;
 
         o.init = function() {
-            if (o.queue.length === 0) {
-                // if there's nothing in the queue, fill it.
+            if (o.queueGuess.length === 0) {
+                // if there's nothing in the queueGuess, fill it.
                 // this also means that this is the first call of init.
                 return o.getNextSongs();
 
@@ -29,8 +30,10 @@ angular.module('SpotifyApp.services', [])
                 method: 'GET',
                 url: '/api/soundtracks'
             }).success(function(data){
-                // merge data into the queue
-                o.queue = o.queue.concat(data);
+                // merge data into the queueGuess
+                o.queueGuess = o.queueGuess.concat(data);
+                o.queueImages = [];
+                o.queueImages =  o.queueImages.concat(data);
             });
         }
 
@@ -38,10 +41,10 @@ angular.module('SpotifyApp.services', [])
             var defer = $q.defer();
 
             // play the current song's preview
-            while (o.queue[0].track.preview_url == null) {
+            while (o.queueGuess[0].track.preview_url == null) {
                 o.nextSong();
             }
-            media = new Audio(o.queue[0].track.preview_url);
+            media = new Audio(o.queueGuess[0].track.preview_url);
 
             // when song loaded, resolve the promise to let controller know.
             media.addEventListener("loadeddata", function() {
@@ -55,13 +58,13 @@ angular.module('SpotifyApp.services', [])
 
         o.nextSong = function() {
             // pop the index 0 off
-            o.queue.shift();
+            o.queueGuess.shift();
 
             // end the song
             o.haltAudio();
 
             // low on the queue? lets fill it up
-            if (o.queue.length <= 3) {
+            if (o.queueGuess.length <= 3) {
                 o.getNextSongs();
             }
         }
@@ -72,7 +75,8 @@ angular.module('SpotifyApp.services', [])
         }
         
         o.removeAudio = function() {
-            o.queue = [];
+            o.queueGuess = [];
+            o.queueImages = [];
         }
         
         o.addSoundTrack = function(soundTrackData) {
