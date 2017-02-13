@@ -14,12 +14,14 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                 console.log("DiscoverCtrl SpotifySoundtracks.init is called")
                 $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
                 $scope.getSoundTrackImages();
-                return SpotifySoundtracks.playCurrentSong();
-
+                SpotifySoundtracks.playCurrentSong();
+                /* for mobile */
+                SpotifySoundtracks.nextSong();
+                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
+                $scope.getSoundTrackImages();
+                SpotifySoundtracks.playCurrentSong()
+                /* for mobile */
             })
-            .then(function(){
-                $scope.currentSong.loaded = true;
-            });
         $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
         $scope.userGuessFailCount = 0;
