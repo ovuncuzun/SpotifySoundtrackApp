@@ -15,12 +15,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                 $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
                 $scope.getSoundTrackImages();
                 SpotifySoundtracks.playCurrentSong();
-                /* for mobile */
-                SpotifySoundtracks.nextSong();
-                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
-                $scope.getSoundTrackImages();
-                SpotifySoundtracks.playCurrentSong()
-                /* for mobile */
             })
         $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
@@ -155,16 +149,9 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
             }
 
             SpotifySoundtracks.nextSong();
-            $timeout(function() {
-                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
-                $scope.getSoundTrackImages();
-                $scope.currentSong.loaded = false;
-
-            }, 50);
-
-            SpotifySoundtracks.playCurrentSong().then(function() {
-                $scope.currentSong.loaded = true;
-            });
+            $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
+            $scope.getSoundTrackImages();
+            SpotifySoundtracks.playCurrentSong();
 
         }
         
