@@ -38,6 +38,7 @@ angular.module('SpotifyApp.services', [])
         }
 
         o.playCurrentSong = function() {
+            console.log("o.playCurrentSong is called")
             var defer = $q.defer();
 
             // play the current song's preview
@@ -45,14 +46,16 @@ angular.module('SpotifyApp.services', [])
                 o.nextSong();
             }
             media = new Audio(o.queueGuess[0].track.preview_url);
-
+            console.log("o.playCurrentSong media is called")
+            console.log(media)
             // when song loaded, resolve the promise to let controller know.
             media.addEventListener("loadeddata", function() {
                 defer.resolve();
+                console.log("o.playCurrentSong media.addEventListener is called")
             });
 
             media.play();
-
+            console.log("o.playCurrentSong media.play is called")
             return defer.promise;
         }
 
