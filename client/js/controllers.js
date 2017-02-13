@@ -1,15 +1,17 @@
 angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify, Auth) {
-        
+        console.log("DiscoverCtrl is called")
         Auth.getUser()
 			.then(function(data){
+                console.log("DiscoverCtrl Auth.getUser is called")
 				$scope.user = data.data;
 			})
         $scope.loggedIn = Auth.isLoggedIn();
     
         SpotifySoundtracks.init()
             .then(function(){
+                console.log("DiscoverCtrl SpotifySoundtracks.init is called")
                 $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
                 $scope.getSoundTrackImages();
                 return SpotifySoundtracks.playCurrentSong();
@@ -24,6 +26,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         if($scope.loggedIn){
             SpotifySoundtracks.getUserScore()
                 .success(function(data){
+                    console.log("DiscoverCtrl SpotifySoundtracks.getUserScore is called")
                     if (data.length > 0) {
                         $scope.userScore = data[0].userScore;
                         $scope.userGuessSuccessCount = data[0].userGuessSuccessCount;
@@ -39,6 +42,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         
 
         $scope.getSoundTrackImages = function () {
+            console.log("DiscoverCtrl getSoundTrackImages is called")
             var queueLength = SpotifySoundtracks.queueImages.length;
 
             $scope.soundTrackImage1 = "";
