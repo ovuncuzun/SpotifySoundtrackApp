@@ -53,9 +53,14 @@ angular.module('SpotifyApp.services', [])
                 defer.resolve();
                 console.log("o.playCurrentSong media.addEventListener is called")
             });
-
-            media.play();
-            console.log("o.playCurrentSong media.play is called")
+            try {
+                media.play();
+                console.log("o.playCurrentSong media.play is called")
+            } catch (e) {
+                alert("o.playCurrentSong media.play error");
+                alert(e)
+            }
+                
             return defer.promise;
         }
 
