@@ -19,6 +19,13 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ng
             console.log("onPlayerReady is called")
             console.log("$rootScope.API")
             console.log($rootScope.API)
+            console.log("$rootScope.API.currentState")
+            console.log($rootScope.API.currentState)
+            /*if($rootScope.API.currentState != 'play'){
+                //Force play if autoplay doesn't work
+                $rootScope.API.play();
+                $rootScope.API.currentState = 'play';
+             } */
             
         };
     
@@ -50,6 +57,13 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ng
                 console.log("$scope.currentSong.preview_url")
                 console.log($scope.currentSong.preview_url)
                 videogular.config.sources = [ {src: $sce.trustAsResourceUrl($scope.currentSong.preview_url), type: "audio/mpeg"}]
+                console.log("$rootScope.API.currentState")
+                console.log($rootScope.API.currentState)
+                if($rootScope.API.currentState != 'play'){
+                    //Force play if autoplay doesn't work
+                    $rootScope.API.play();
+                    $rootScope.API.currentState = 'play';
+                } 
                 SpotifySoundtracks.playCurrentSong();
             })
         $scope.userScore = 0;
@@ -193,6 +207,11 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ng
             console.log("$rootScope.API")
             console.log($rootScope.API)
             videogular.setAudio($scope.currentSong.preview_url)
+            if($rootScope.API.currentState != 'play'){
+                //Force play if autoplay doesn't work
+                $rootScope.API.play();
+                $rootScope.API.currentState = 'play';
+            } 
             
             SpotifySoundtracks.playCurrentSong();
 
