@@ -4,6 +4,19 @@
     </div>
 </div>
 
+
+<div ng-controller="DiscoverCtrl as videogular">
+    <videogular vg-player-ready="videogular.onPlayerReady($API)" vg-theme="videogular.config.theme.url" vg-auto-play="true" class="videogular-container audio">
+        <vg-media vg-src="videogular.config.sources" vg-type="audio"></vg-media>
+        <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+        </vg-controls>
+    </videogular>
+</div>
+
 <div class="container">
     <div class="row imagetiles">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
