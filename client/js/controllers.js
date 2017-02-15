@@ -1,47 +1,8 @@
-angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ngSanitize',
-            'com.2fdevs.videogular',
-            'com.2fdevs.videogular.plugins.controls'])
+angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
-    .controller('DiscoverCtrl', function($rootScope, $scope, $timeout, SpotifySoundtracks, notify, Auth, $sce) {
+    .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify, Auth, $sce) {
         console.log("DiscoverCtrl is called")
-        
-        var videogular = this;
-        console.log("DiscoverCtrl is called")
-        $rootScope.API = null;
-        videogular.config = {
-            sources: [],
-            theme: { url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"}
-        };
     
-        videogular.onPlayerReady = function(API) {
-            var localAPI = API;
-            $rootScope.API = localAPI;
-            console.log("onPlayerReady is called")
-            console.log("$rootScope.API")
-            console.log($rootScope.API)
-            console.log("$rootScope.API.currentState")
-            console.log($rootScope.API.currentState)
-            /*if($rootScope.API.currentState != 'play'){
-                //Force play if autoplay doesn't work
-                $rootScope.API.play();
-                $rootScope.API.currentState = 'play';
-             } */
-            
-        };
-    
-        videogular.setAudio = function(soundTrackUrl) {
-            console.log("setAudio is called")
-            console.log($rootScope.API)
-            $rootScope.API.stop();
-            console.log("setAudio videogular")
-            console.log(videogular)
-            videogular.config.sources = [ {src: $sce.trustAsResourceUrl(soundTrackUrl), type: "audio/mpeg"}]
-            $rootScope.API.sources = [ {src: $sce.trustAsResourceUrl(soundTrackUrl), type: "audio/mpeg"}]
-            console.log("soundTrackUrl")
-            console.log(soundTrackUrl)
-            $rootScope.API.play();
-        };
-
         Auth.getUser()
 			.then(function(data){
                 console.log("DiscoverCtrl Auth.getUser is called")
@@ -56,14 +17,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ng
                 $scope.getSoundTrackImages();
                 console.log("$scope.currentSong.preview_url")
                 console.log($scope.currentSong.preview_url)
-                videogular.config.sources = [ {src: $sce.trustAsResourceUrl($scope.currentSong.preview_url), type: "audio/mpeg"}]
-                console.log("$rootScope.API.currentState")
-                console.log($rootScope.API.currentState)
-                if($rootScope.API.currentState != 'play'){
-                    //Force play if autoplay doesn't work
-                    $rootScope.API.play();
-                    $rootScope.API.currentState = 'play';
-                } 
                 SpotifySoundtracks.playCurrentSong();
             })
         $scope.userScore = 0;
@@ -203,15 +156,6 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify', 'ng
             console.log("SpotifySoundtracks.queueGuess")
             console.log(SpotifySoundtracks.queueGuess)
             $scope.getSoundTrackImages();
-            console.log("videogularConfig.sources is called")
-            console.log("$rootScope.API")
-            console.log($rootScope.API)
-            videogular.setAudio($scope.currentSong.preview_url)
-            if($rootScope.API.currentState != 'play'){
-                //Force play if autoplay doesn't work
-                $rootScope.API.play();
-                $rootScope.API.currentState = 'play';
-            } 
             
             SpotifySoundtracks.playCurrentSong();
 
