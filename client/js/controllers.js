@@ -11,7 +11,12 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         $scope.loggedIn = Auth.isLoggedIn();
     
         SpotifySoundtracks.init()
-       
+            .then(function(){
+                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
+                $scope.getSoundTrackImages();
+                //SpotifySoundtracks.playCurrentSong();
+                
+            })
         $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
         $scope.userGuessFailCount = 0;
