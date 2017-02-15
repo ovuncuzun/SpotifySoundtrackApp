@@ -4,8 +4,11 @@
     </div>
 </div>
 
+<div class="col-md-4 text-center" ng-if="!startGuessingClicked"> 
+    <button type="button" ng-click="startGuessing()"  class="btn btn-primary btn-lg"> Start </button>
+</div>  
 
-<div class="container">
+<div class="container" ng-if="startGuessingClicked">
     <div class="row imagetiles">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
             <div class="item-image">

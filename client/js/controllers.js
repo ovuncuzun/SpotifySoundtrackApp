@@ -2,7 +2,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
 
     .controller('DiscoverCtrl', function($scope, $timeout, SpotifySoundtracks, notify, Auth, $sce) {
         console.log("DiscoverCtrl is called")
-    
+        $scope.startGuessingClicked = false;
         Auth.getUser()
 			.then(function(data){
                 console.log("DiscoverCtrl Auth.getUser is called")
@@ -11,14 +11,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         $scope.loggedIn = Auth.isLoggedIn();
     
         SpotifySoundtracks.init()
-            .then(function(){
-                console.log("DiscoverCtrl SpotifySoundtracks.init is called")
-                $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
-                $scope.getSoundTrackImages();
-                console.log("$scope.currentSong.preview_url")
-                console.log($scope.currentSong.preview_url)
-                SpotifySoundtracks.playCurrentSong();
-            })
+       
         $scope.userScore = 0;
         $scope.userGuessSuccessCount = 0;
         $scope.userGuessFailCount = 0;
@@ -33,7 +26,15 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
                     }
                 });
         }
-        
+        $scope.startGuessing = function () {
+            $scope.startGuessingClicked = true;
+            console.log("DiscoverCtrl SpotifySoundtracks.init is called")
+            $scope.currentSong = SpotifySoundtracks.queueGuess[0].track;
+            $scope.getSoundTrackImages();
+            console.log("$scope.currentSong.preview_url")
+            console.log($scope.currentSong.preview_url)
+            SpotifySoundtracks.playCurrentSong();
+        }
     
         $scope.$on('$destroy', function(event) {
           SpotifySoundtracks.removeAudio();
