@@ -1,12 +1,13 @@
 angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controllers', 'mainCtrl', 'authService', 'userService', 'userCtrl'])
 
-    .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(function($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
     
         $httpProvider.defaults.headers.common = {};
         $httpProvider.defaults.headers.post = {};
         $httpProvider.defaults.headers.put = {};
         $httpProvider.defaults.headers.patch = {};
-
+        $locationProvider.hashPrefix('!');
+    
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
