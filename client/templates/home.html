@@ -18,7 +18,7 @@
 
 <div class="user-score-container container" ng-if="main.loggedIn">
     <div class="text-center"> 
-         <span class="user-score"> Your Score: {{userScore}} </span>
+         <span class="user-score"> Your Score: {{::userScore}} </span>
     </div>
 </div>
 
@@ -34,9 +34,9 @@
         </thead>
         <tbody>
         <tr ng-repeat="row in rowCollection">
-            <td><img ng-src="{{row.soundTrackImage}}" class="img-responsive"/></td>
-            <td>{{row.soundTrackMovie}}</td>
-            <td>{{row.soundTrackName}}</td>
+            <td><img ng-src="{{::row.soundTrackImage}}" class="img-responsive"/></td>
+            <td>{{::row.soundTrackMovie}}</td>
+            <td>{{::row.soundTrackName}}</td>
             <td>
                 <div ng-if="row.soundTrackGuess">
                     <span class="glyphicon glyphicon-ok"> </span>
