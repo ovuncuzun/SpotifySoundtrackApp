@@ -17,6 +17,7 @@
     "jsonwebtoken": "*",
     "mongoose": "*",
     "morgan": "*",
+    "prerender-node": "*",
     "promise":"*",
     "restler": "*",
     "socket.io": "*"
