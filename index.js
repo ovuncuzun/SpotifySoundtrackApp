@@ -17,12 +17,13 @@ mongoose.connect(config.database, function(err){
     }
 });
 
+app.use(require('prerender-node').set('prerenderToken', 'iiXVwbdwdTtKkPA5ALSj'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use(express.static(__dirname + '/client'));
-app.use(require('prerender-node').set('prerenderToken', 'iiXVwbdwdTtKkPA5ALSj'));
+
 
 var api  = require('./server/routes/api')(app, express, io);
 app.use('/api', api);
