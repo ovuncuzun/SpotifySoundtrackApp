@@ -191,6 +191,43 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
         SpotifySoundtracks.haltAudio();
     })
 
+    .controller('LetterCtrl', function($scope, $interval, SpotifySoundtracks) {
+        SpotifySoundtracks.haltAudio();
+        $scope.letters = ['E', 'e', 'L', 'l', 'A', 'a', 'K', 'k', 'İ', 'i', 'N', 'n'];
+        $scope.indexLetters = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+        function shuffleArray(a) {
+            var j, x, i;
+            for (i = a.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = a[i];
+                a[i] = a[j];
+                a[j] = x;
+            }
+            return a;
+        }   
+
+        $scope.shuffledIndex = shuffleArray($scope.indexLetters);
+        console.log($scope.shuffledIndex);
+
+        $scope.indexTrack = 0;
+        function getRandomLetter() {
+        
+            var index = $scope.shuffledIndex[$scope.indexTrack];
+            $scope.randomLetter = $scope.letters[index];
+
+            $scope.indexTrack++;
+
+            if($scope.indexTrack == 12) {
+                $scope.shuffledIndex = shuffleArray($scope.indexLetters);
+                console.log($scope.shuffledIndex);
+                $scope.indexTrack = 0;
+            }
+        }
+
+        $interval(getRandomLetter, 3000);
+    })
+
 
 angular.module('mainCtrl', ['authService'])
 
@@ -279,6 +316,7 @@ angular.module('userCtrl',['userService'])
         }
 });
 
+//hello
 
     
 

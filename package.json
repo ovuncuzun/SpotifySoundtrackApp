@@ -10,7 +10,7 @@
   "author": "anatolii ruchka",
   "license": "ISC",
   "dependencies": {
-    "angular-smart-table" : "*",
+    "angular-smart-table": "*",
     "bcrypt-nodejs": "*",
     "body-parser": "*",
     "express": "*",
@@ -18,7 +18,7 @@
     "mongoose": "*",
     "morgan": "*",
     "prerender-node": "*",
-    "promise":"*",
+    "promise": "*",
     "restler": "*",
     "socket.io": "*"
   }

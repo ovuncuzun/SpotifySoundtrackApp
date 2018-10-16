@@ -136,3 +136,15 @@ body {
 .videogular-container.audio {
     height: 50px;
 }
+
+.letter-size {
+  font-size: 45vw; 
+}
+
+.container-table {
+    display: table;
+}
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
