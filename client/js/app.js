@@ -6,7 +6,8 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
         $httpProvider.defaults.headers.post = {};
         $httpProvider.defaults.headers.put = {};
         $httpProvider.defaults.headers.patch = {};
-        $locationProvider.hashPrefix('!');
+        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('');
     
         $urlRouterProvider.otherwise('/');
 
@@ -63,8 +64,8 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
                 controller: 'AdminCtrl'
             })
 
-            .state('letter', {
-                url: '/letter',
+            .state('harf', {
+                url: '/harf',
                 templateUrl: 'templates/letter.html',
                 controller: 'LetterCtrl'
             })

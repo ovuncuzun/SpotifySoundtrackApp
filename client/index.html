@@ -43,51 +43,11 @@
         }
         body { font-family: "Alfabe" }
     </style>
-
+    <base href="/">
 </head>
 <body ng-app="SpotifyApp" ng-controller="MainController as main">
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand usoundtrack" ui-sref="discover" ng-click='navCollapsed = true'>USoundTrack</a>
-            </div>
-
-            <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a ui-sref="home" ng-click='navCollapsed = true'>Home</a></li>
-                    <li><a ui-sref="leaderboard" ng-click='navCollapsed = true'>Leaderboard</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="!main.loggedIn"><a ui-sref="login">Login</a></li>
-					<li ng-if="!main.loggedIn"><a ui-sref="signup">Sign Up</a></li>
-					<li ng-if="main.loggedIn"><a ui-sref="profile">Hello {{::main.user.username}}</a></li>
-					<li ng-if="main.loggedIn"><a ui-sref="/" ng-click="main.doLogout()">Logout</a></li>
-                    
-                    <li class="dropdown" uib-dropdown ng-if="false">
-                        <a class="dropdown-toggle" uib-dropdown-toggle>
-                            <i class="fa fa-cogs"></i> Admin
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="admin" ng-click='navCollapsed = true'>Actions</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <ul class="nav navbar-nav navbar-right">
-				</ul>
-            </div>
-        </div>
-    </nav>
     <main>
         <div ui-view></div>
     </main>
 </body>
-     
 </html>

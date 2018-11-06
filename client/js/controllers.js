@@ -225,7 +225,7 @@ angular.module('SpotifyApp.controllers', ['SpotifyApp.services', 'cgNotify'])
             }
         }
 
-        $interval(getRandomLetter, 3000);
+        $interval(getRandomLetter, 2000);
     })
 
 
