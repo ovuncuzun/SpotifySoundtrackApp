@@ -1,24 +1,22 @@
-
 <div class="jumbotron text-center" ng-if="!main.loggedIn">
 
-	<div>
-		<h1 class="usoundtrack">USoundTrack</h1>
-	</div>
+    <div>
+        <h1 class="usoundtrack">USoundTrack</h1>
+    </div>
 
-
-	<div>
-		<p> Login or Signup to guess the soundtracks</p>
-		<a ui-sref="login" class="btn btn-primary">Login</a>
+    <div>
+        <p> Login or Signup to guess the soundtracks</p>
+        <a ui-sref="login" class="btn btn-primary">Login</a>
         <a ui-sref="signup" class="btn btn-primary">Sign Up</a>
         <p> or try anonymously</p>
         <a ui-sref="discover" class="btn btn-primary">Let's Try</a>
-	</div>
+    </div>
 
 </div>
 
 <div class="user-score-container container" ng-if="main.loggedIn">
-    <div class="text-center"> 
-         <span class="user-score"> Your Score: {{::userScore}} </span>
+    <div class="text-center">
+        <span class="user-score"> Your Score: {{::userScore}} </span>
     </div>
 </div>
 
@@ -27,7 +25,7 @@
         <thead>
         <tr>
             <th>Movie Poster</th>
-            <th>Movie</th>   
+            <th>Movie</th>
             <th>SoundTrack</th>
             <th>Guess</th>
         </tr>

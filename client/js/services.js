@@ -7,8 +7,6 @@ angular.module('SpotifyApp.services', [])
             queueImages: [],
             soundTrackGuessList : []
         };
-    
-        
 
         // placeholder for the media player
         var media;

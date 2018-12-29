@@ -64,12 +64,6 @@ angular.module('SpotifyApp', ['ui.router', 'ui.bootstrap', 'SpotifyApp.controlle
                 controller: 'AdminCtrl'
             })
 
-            .state('harf', {
-                url: '/harf',
-                templateUrl: 'templates/letter.html',
-                controller: 'LetterCtrl'
-            })
-
 
     });
 
